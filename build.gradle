@@ -1,0 +1,39 @@
+plugins {
+    id "org.liquibase.gradle" version "2.0.2"
+}
+
+ext {
+    dbUrl1 = "jdbc:postgresql:example1"
+    dbUrl2 = "jdbc:postgresql:example2"
+}
+
+group = "org.abelk"
+version = "0.0.1-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    liquibaseRuntime "org.liquibase:liquibase-core:3.8.1"
+    liquibaseRuntime "org.postgresql:postgresql:42.2.11"
+    liquibaseRuntime "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3"
+}
+
+liquibase {
+    runList = project.ext.changeLogs
+    activities {
+        changeFieldOrder {
+            changeLogFile "src/main/resources/changelogs/change-field-order.xml"
+            url project.ext.dbUrl1
+            username project.ext.dbUsername
+            password project.ext.dbPassword
+        }
+        changeFieldDataType {
+            changeLogFile "src/main/resources/changelogs/change-field-datatype.xml"
+            url project.ext.dbUrl2
+            username project.ext.dbUsername
+            password project.ext.dbPassword
+        }
+    }
+}

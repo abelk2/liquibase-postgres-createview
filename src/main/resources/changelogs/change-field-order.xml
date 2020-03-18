@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+
+    <changeSet id="1" author="abelk">
+        <comment>Create example view</comment>
+
+        <createTable tableName="example_table">
+          <column name="field1" type="int" />
+          <column name="field2" type="int" />
+        </createTable>
+
+        <createView viewName="example_view" replaceIfExists="true">
+          SELECT     field1, field2
+          FROM       example_table
+        </createView>
+    </changeSet>
+
+    <changeSet id="2" author="abelk">
+        <comment>Change field order</comment>
+
+        <createView viewName="example_view" replaceIfExists="true">
+          SELECT     field2, field1
+          FROM       example_table
+        </createView>
+    </changeSet>
+
+</databaseChangeLog>
+
